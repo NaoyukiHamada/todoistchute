@@ -14,7 +14,7 @@ const defaultLinkIcon = "false"; // リンクアイコン挿入の初期値
 const defaultTaskBar = "true"; // タスクバー使用の初期値
 
 let tchtml;
-const tcParentId = "#content"; // tcの親要素のID
+const tcParentId = ".view_content"; // tcの親要素のID
 const taskListParentId = ".main-view-layout"; // タスクリストを内包する要素のID
 const tcCheckIntervalTime = 300; // タスクリストの変更をチェックする間隔の時間（ミリ秒）
 
