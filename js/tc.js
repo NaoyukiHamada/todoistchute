@@ -14,7 +14,7 @@ const defaultLinkIcon = "false"; // リンクアイコン挿入の初期値
 const defaultTaskBar = "true"; // タスクバー使用の初期値
 
 let tchtml;
-const tcParentId = ".section"; // tcの親要素のID
+let tcParentId = ".view_content"; // tcの親要素のID
 let taskListParentId = ".main-view-layout"; // タスクリストを内包する要素のID
 const tcCheckIntervalTime = 300; // タスクリストの変更をチェックする間隔の時間（ミリ秒）
 
@@ -89,6 +89,12 @@ $(async function () {
       taskListParentId = ".search_view__results";
     } else {
       taskListParentId = ".main-view-layout";
+    }
+
+    if (location.pathname.includes("search")) {
+      tcParentId = ".section";
+    } else {
+      tcParentId = ".view_content";
     }
     curTaskContent = $(taskListParentId).html();
     if (!curTaskContent) {
