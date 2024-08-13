@@ -14,8 +14,8 @@ const defaultLinkIcon = "false"; // リンクアイコン挿入の初期値
 const defaultTaskBar = "true"; // タスクバー使用の初期値
 
 let tchtml;
-const tcParentId = ".view_content"; // tcの親要素のID
-const taskListParentId = ".main-view-layout"; // タスクリストを内包する要素のID
+const tcParentId = ".section"; // tcの親要素のID
+let taskListParentId = ".main-view-layout"; // タスクリストを内包する要素のID
 const tcCheckIntervalTime = 300; // タスクリストの変更をチェックする間隔の時間（ミリ秒）
 
 $(async function () {
@@ -85,7 +85,16 @@ $(async function () {
 
   // タスクや幅に変更があれば時間計算を実行
   var check = function () {
+    if (location.pathname.includes("search")) {
+      taskListParentId = ".search_view__results";
+    } else {
+      taskListParentId = ".main-view-layout";
+    }
     curTaskContent = $(taskListParentId).html();
+    if (!curTaskContent) {
+      $("#tc-wrapper").remove();
+      return false
+    }
     // タスクアイテムが変わったら時間計測を実行
     if (taskContent != curTaskContent) {
       if (debugMode) console.log("check: task change!");
