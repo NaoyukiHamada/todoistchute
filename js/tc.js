@@ -208,6 +208,29 @@ $(async function () {
       return false;
     }
 
+    // セクション内の//ラベルの合計時間を計算して表示
+    $('section.section').each(function() {
+      const section = $(this);
+      const header = section.find('header');
+      let totalMinutes = 0;
+      
+      // このセクション内のタスクを取得して時間を合計
+      section.find('.task_list_item').each(function() {
+        const taskTime = taskTimeSum(this);
+        if (taskTime > 0) {
+          totalMinutes += taskTime;
+        }
+      });
+      
+      // 既存の時間表示があれば削除
+      header.find('.tc-section-time').remove();
+      
+      // 合計時間が0より大きい場合のみ表示
+      if (totalMinutes > 0) {
+        header.append(`<span class="tc-section-time" style="color: #808080;">${totalMinutes}m</span>`);
+      }
+    });
+
     // 日付リスト作成
     showDateList(taskData);
     var tcDateVal = $("#tc-date").val();
